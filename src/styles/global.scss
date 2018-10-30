@@ -5,3 +5,27 @@
     height: 800px;
     background-color: #e8e8e8;
 }
+
+.card-wrapper {
+    width: 100%;
+}
+
+.cardsection-wrapper {
+    border: 1px solid #e8e8e8;
+    padding: 10px;
+    
+
+    h3 {
+        font-size: 1.1rem;
+        text-align: left;
+    }
+}
+
+.input-section {
+    padding: 10px;
+    border-left: 1px solid #e8e8e8;
+    border-right: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    // margin-bottom: 20px;
+    text-align: left;
+}

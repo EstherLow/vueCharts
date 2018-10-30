@@ -2,31 +2,39 @@
     <div id="main-screen">
         <h1>Preview</h1>
         <div class="chart-container">
+            <div v-if="isLoading">
+                <loading></loading>
+            </div>
+            <div v-if="!isLoading">
             <h3>{{userChartTitle}}</h3>
             <div id="img-placeholder">
                 <img class="grayscale" src="../assets/bar-chart-icon.png">
             </div>
             <div class="button-wrapper">
-                <Button class="btn btn-success btn-md">
+                <Button class="btn btn-success btn-md" :onClick="selChartType">
                     Click to select chart type
                 </Button>
+            </div>
             </div>
         </div>
     </div>
 </template>
 <script>
 import { mapState } from 'vuex'
+import loading from "./common/loading"
 import Button from './common/Button'
 export default {
-    components: { Button },
+    components: { Button, loading },
     data () {
         return {}
     },
     methods: {
-
+        selChartType() {
+         console.log('clicked')  
+        }
     },
     computed: {
-        ...mapState(['userChartTitle'])
+        ...mapState(['userChartTitle', 'isLoading'])
     }
 }
 </script>
@@ -37,6 +45,7 @@ export default {
  }
  .chart-container {
      width: 100%;
+     min-height: 500px;
      border: 1px solid #c8c8c8;
      padding: 20px;
      h3 {

@@ -1,18 +1,24 @@
 <template>
   <div id="app">
     <div class="row">
-      <div class="col-md-6 col-sm-12"></div>
-      <div class="col-md-6 col-sm-12"><Preview></Preview></div>
+      <div class="col-md-4 col-sm-12"><LeftPanel></LeftPanel></div>
+      <div class="col-md-8 col-sm-12"><Preview></Preview></div>
     </div> 
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Preview from "./components/Preview.vue";
+import LeftPanel from "./components/Leftpanel"
+
 export default {
   name: "app",
   components: {
-    Preview
+    Preview, LeftPanel
+  },
+  computed: {
+    ...mapState(["isLoading"])
   }
 };
 </script>

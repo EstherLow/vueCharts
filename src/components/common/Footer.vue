@@ -1,7 +1,7 @@
 <template>
-    <div id="header">
-    
-    </div>    
+    <div id="footer">
+        Icon made by Freepik from www.flaticon.com 
+    </div>
 </template>
 <script>
 export default {
