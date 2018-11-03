@@ -1,14 +1,16 @@
 <template>
     <div id="main-screen">
-        <h1>Preview</h1>
         <div class="chart-container">
             <div v-if="isLoading">
                 <loading></loading>
             </div>
             <div v-if="!isLoading">
             <h3>{{userChartTitle}}</h3>
-            <div id="img-placeholder">
+            <!-- <div id="img-placeholder">
                 <img class="grayscale" src="../assets/bar-chart-icon.png">
+            </div> -->
+            <div>
+                <highcharts :options="userChartOptions"></highcharts>
             </div>
             <div class="button-wrapper">
                 <Button class="btn btn-success btn-md" :onClick="selChartType">
@@ -23,10 +25,13 @@
 import { mapState } from 'vuex'
 import loading from "./common/loading"
 import Button from './common/Button'
+
 export default {
     components: { Button, loading },
     data () {
-        return {}
+        return {
+    
+        }
     },
     methods: {
         selChartType() {
@@ -34,7 +39,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['userChartTitle', 'isLoading'])
+        ...mapState(['userChartTitle', 'isLoading', 'userChartOptions'])
     }
 }
 </script>

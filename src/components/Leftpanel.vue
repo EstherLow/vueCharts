@@ -13,12 +13,12 @@
             </transition>
             <Card @click.native="clickStep('step2')">
                 <template slot="header">
-                    <h3>Step 2: Click to select type of chart</h3>
+                    <h3>Step 2: Click to change/select type of chart</h3>
                 </template>
             </Card>
             <transition>
                 <div v-if="showInput === 'step2'" class="input-section clearfix">
-                    <RadioButton 
+                    <ChartButton 
                         class="radio-button" 
                         v-for="each in radioButtons" 
                         :key="each.radioVal"
@@ -31,11 +31,11 @@
             </transition>
             <Card @click.native="clickStep('step3')">
                 <template slot="header">
-                    <h3>Step 3: Enter Data</h3>
+                    <h3>Step 3: Enter Data and Customise Chart</h3>
                 </template>
             </Card>
             <transition>
-                <div v-if="showInput === 'step3'">
+                <div v-if="showInput === 'step3'" class="input-section">
                     <ChartForm></ChartForm>
                 </div>
             </transition>
@@ -50,12 +50,12 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import Card from './common/Card'
-import RadioButton from './common/RadioInput'
-import ChartForm from './common/ChartForm'
+import ChartButton from './ChartButton'
+import ChartForm from './ChartForm'
 export default {
     name: "LeftPanel",
     components: {
-        Card, RadioButton, ChartForm
+        Card, ChartButton, ChartForm
     },
     data () {
         return {
@@ -74,6 +74,9 @@ export default {
         clickStep: function(name) {
             console.log(name)
             this.showInput = name
+            if ( name === "step3") {
+
+            }
         },
         inputChange: function() {
             this.setChartTitle(this.chartTitle)
@@ -83,9 +86,6 @@ export default {
             console.log('this is ', val)
             this.$forceUpdate()
         },
-        getSampleChart: function () {
-
-        }
     },
     computed: {
         ...mapState(["selectedChartType"])

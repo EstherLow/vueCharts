@@ -5,12 +5,12 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import HighchartsVue from 'highcharts-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 window.$ = $
 
-library.add(faCircleNotch)
+library.add(faCircleNotch, faPlus)
 
 Vue.use(HighchartsVue)
 Vue.component('font-awesome-icon', FontAwesomeIcon)

@@ -13,7 +13,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
-    name: 'RadioButtons',
+    name: 'ChartButtons',
     props: {
         imgSrc: String,
         labelText: String

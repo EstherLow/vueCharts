@@ -1,9 +1,11 @@
 <template>
   <div id="app">
+    <div>
     <div class="row">
       <div class="col-md-4 col-sm-12"><LeftPanel></LeftPanel></div>
       <div class="col-md-8 col-sm-12"><Preview></Preview></div>
     </div> 
+    </div>
   </div>
 </template>
 
