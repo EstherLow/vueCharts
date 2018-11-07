@@ -1,6 +1,11 @@
 <template>
     <button @click="onClick">
-        <slot>Button</slot>
+        <p>
+            <slot name="icon"></slot>
+        </p>
+        <p>
+            <slot name='button-text'>Text</slot>
+        </p>
     </button>    
 </template>
 <script>
@@ -13,3 +18,13 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+    p {
+        margin: 0px;
+        vertical-align: middle;
+    }
+    button {
+        border-radius: 5px;
+    }
+
+</style>

@@ -72,6 +72,11 @@ export default new Vuex.Store({
       keys.forEach(function (k) {
         state.userChartOptions[k] = obj[k]
       })
+    },
+    setChartData (state, obj) {
+      console.log('store', obj);
+      
+      state.chartData.push(obj)
     }
   },
   actions: {
@@ -86,6 +91,9 @@ export default new Vuex.Store({
     },
     changeUserChartOptions ({commit}, obj) {
       commit('changeUserChartOptions', obj)
+    },
+    setChartData ({commit}, obj) {
+      commit('setChartData', obj)
     }
   }
 });
