@@ -8,9 +8,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-const Highcharts = require('highcharts')
 
-// window.$ = $
+window.$ = $
 
 library.add(faCircleNotch, faPlus)
 
