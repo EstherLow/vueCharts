@@ -9,9 +9,7 @@
             <!-- <div id="img-placeholder">
                 <img class="grayscale" src="../assets/bar-chart-icon.png">
             </div> -->
-            <div>
-                <highcharts :options="userChartOptions"></highcharts>
-            </div>
+            <div id='chart'></div>
             <div class="button-wrapper">
                 <Button class="btn btn-success btn-md" :onClick="selChartType">
                     Click to select chart type
@@ -25,21 +23,27 @@
 import { mapState } from 'vuex'
 import loading from "./common/loading"
 import Button from './common/Button'
-
+import Highcharts from 'highcharts'
 export default {
     components: { Button, loading },
+    mounted: function () {
+        this.drawChart(this.chartOptions)
+    },
     data () {
         return {
-    
+            
         }
     },
     methods: {
         selChartType() {
          console.log('clicked')  
-        }
+        },
+       drawChart (op) {
+           Highcharts.chart('chart', op)
+       }
     },
     computed: {
-        ...mapState(['userChartTitle', 'isLoading', 'userChartOptions'])
+        ...mapState(['userChartTitle', 'isLoading', 'chartOptions'])
     }
 }
 </script>

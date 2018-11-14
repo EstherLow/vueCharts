@@ -2,21 +2,21 @@
     <div id="input-data">
         <div class="row mt-2">
             <div class="col-sm-4">
-                <label>Enter Category</label>
+                <label>Name(x-axis)</label>
                 <input type="text" v-model="point.name" placeholder='CatA'/>
             </div>
             <div class="col-sm-4">
-                <label>Enter y-value</label>
+                <label>Y-value</label>
                 <input type="text" v-model="point.y" placeholder='10'/>
             </div>
             <div class="col-sm-4">
-                <label>Enter Color</label>
+                <label>Color</label>
                 <input type="text" v-model="point.color" placeholder='#FC707A' v-on="inputListeners" /></div>
         </div>
     </div>
 </template>
 <script>
-import {mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
     inheritAttrs: false,
     data() {
@@ -28,13 +28,15 @@ export default {
             }
         }
     },
+
     methods: {
         ...mapActions(['setChartData']),
         initPointData: function () {
-            let vm = this
-            vm.point.name = ''
-            vm.point.y = ''
-            vm.point.color = ''
+          
+            this.point.name = ''
+            this.point.y = ''
+            this.point.color = ''
+      
         },
         addData: function () {
             console.log('fired', this.point);
@@ -48,8 +50,10 @@ export default {
             var vm = this
             return Object.assign({}, this.$listeners, {
                 blur: function () {
-                    console.log('blur', vm.point);
-                    vm.setChartData(vm.point)
+                    let clone = Object.assign({}, vm.point)
+                    vm.setChartData(clone)
+                    setTimeout(vm.initPointData, 500)
+                    
                 }
             })
         }

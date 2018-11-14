@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { stat } from "fs";
 
 Vue.use(Vuex);
 
@@ -12,7 +13,7 @@ export default new Vuex.Store({
     chartOptions: {},
     chartData: [],
     legacyChartOptions: {},
-    userChartOptions: {
+    chartOptions: {
       chart:{
           type: 'column',
           height: 400
@@ -25,7 +26,6 @@ export default new Vuex.Store({
       },
       yAxis: {
           min: 0,
-          max: 15,
           title: {
               text: null
           }
@@ -42,6 +42,9 @@ export default new Vuex.Store({
               return this.point.name + ': ' + this.point.y + '%'
           }
       },
+      plotOptions: {
+
+      },
       series: [
           {
               name: 'Simple Bar',
@@ -54,7 +57,13 @@ export default new Vuex.Store({
               ],
           }
       ]
-    }
+    },
+    sampleChartData: [
+      {name: 'PointA', data: [10,2,5,7], color: '#FC707A'},
+      {name: 'PointB', data: [5,6,8,9], color: '#FFE571'},
+      {name: 'PointC', data: [9,8,6,2], color: '#8770DD'},
+      {name: 'PointD', data: [3,2,1,3], color: '#7AEC68'}
+    ]
   },
   mutations: {
     setChartTitle (state, payload) {
@@ -66,16 +75,32 @@ export default new Vuex.Store({
     setIsLoading (state, bool) {
       state.setIsLoading = bool
     },
-    changeUserChartOptions (state, obj) {
-      state.legacyChartOptions = state.userChartOptions
+    changeChartOptions (state, obj, data) {
+      state.legacyChartOptions = state.chartOptions
       let keys = Object.keys(obj)
       keys.forEach(function (k) {
-        state.userChartOptions[k] = obj[k]
+        state.chartOptions[k] = obj[k]
       })
+      if (state.selectedChartType !== 'bar' && state.selectedChartType !== 'pie') {
+        state.chartOptions.series = []
+        if (!data) {
+          state.chartOptions.series = state.sampleChartData
+        } else {
+          state.chartOptions.series = data
+        }
+      }
+      state.isLoading = false
     },
-    setChartData (state, obj) {
-      console.log('store', obj);
-      
+    changeChartData (state, payload) {
+      state.chartOptions.series = []
+      if (!payload) {
+        state.chartOptions.series = state.sampleChartData
+      } else {
+        state.chartOptions.series = payload
+      }
+      state.isLoading = false
+    },
+    setChartData (state, obj) {    
       state.chartData.push(obj)
     }
   },
@@ -89,11 +114,14 @@ export default new Vuex.Store({
     setIsLoading ({commit}, bool) {
       commit('setIsLoading', bool)
     },
-    changeUserChartOptions ({commit}, obj) {
-      commit('changeUserChartOptions', obj)
+    changeChartOptions ({commit}, obj) {
+      commit('changeChartOptions', obj)
     },
     setChartData ({commit}, obj) {
       commit('setChartData', obj)
-    }
+    },
+    changeChartData({commit}, arr) {
+      commit('changeChartData', arr)
+    },
   }
 });

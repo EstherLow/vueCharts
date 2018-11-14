@@ -1,19 +1,19 @@
 <template>
     <div id="form">
         <div class="form-container">
+            <h4>Chart Data <span>click on row to edit data</span></h4>
             <div class="row">
-                {{userData}}
                 <div class="input-table" v-show="userData.length > 0">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>category</th>
+                                    <th>name</th>
                                     <th>y</th>
                                     <th>color</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="each in userData" :key="each.name">
+                                <tr v-for="each,idx in userData" :key="each.name" @click="selectRow(idx)">
                                     <td>{{each.name}}</td>
                                     <td>{{each.y}}</td>
                                     <td>{{each.color}}</td>
@@ -25,6 +25,7 @@
             <div class="row mt-1">
                 <InputData></InputData>
             </div>
+            <h4 class="mt-5">Customise Chart</h4>
             <!-- <div class="row mt-1">
                 <Button class="button-orange" :onClick="addRow">
                     <template slot="button-text" class="button-text">Add Data</template>
@@ -63,7 +64,8 @@ export default {
         ...mapActions(["changeUserChartOptions"]),
         addNewCat: function () {},
         addRow: function () {},
-        pushDataPoint: function () {}
+        pushDataPoint: function () {},
+        selectRow: function () {}
     },
     computed: {
         ...mapState(["userChartOptions", "chartData", "selectedChartType", "chartData"]),
@@ -88,6 +90,14 @@ export default {
 <style lang="scss" scoped>
 .form-container {
     font-size: 0.8rem;
+
+    h4 {
+        font-size: 1.2rem;
+
+        span {
+            font-size: 0.7rem
+        }
+    }
 }
 .row {
     margin: 0px;

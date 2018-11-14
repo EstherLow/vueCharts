@@ -3,21 +3,12 @@
         <div class="card-wrapper">
             <Card @click.native="clickStep('step1')">
                 <template slot="header">
-                    <h3>Step 1: Enter title of chart</h3>
+                    <h3>Step 1: Click to change/select type of chart</h3>
                 </template>
             </Card>
             <transition>
-                <div v-if="showInput === 'step1'" class="input-section">
-                    <input type="text" class="form-control" v-model="chartTitle" @change="inputChange" placeholder="Enter Your Chart Title Here">
-                </div>
-            </transition>
-            <Card @click.native="clickStep('step2')">
-                <template slot="header">
-                    <h3>Step 2: Click to change/select type of chart</h3>
-                </template>
-            </Card>
-            <transition>
-                <div v-if="showInput === 'step2'" class="input-section clearfix">
+                <div v-if="showInput === 'step1'" class="input-section clearfix">
+                    <h4>Highcharts</h4>
                     <ChartButton 
                         class="radio-button" 
                         v-for="each in radioButtons" 
@@ -27,6 +18,17 @@
                         @click.native="radioClicked(each.radioVal)"
                         :class="{'selected': selectedChartType === each.radioVal}"
                     />
+                    <h4>D3 Charts</h4>
+                </div>
+            </transition>
+            <Card @click.native="clickStep('step2')">
+                <template slot="header">
+                    <h3>Step 2: Enter title of chart</h3>
+                </template>
+            </Card>
+            <transition>
+                <div v-if="showInput === 'step2'" class="input-section">
+                    <input type="text" class="form-control" v-model="chartTitle" @change="inputChange" placeholder="Enter Your Chart Title Here">
                 </div>
             </transition>
             <Card @click.native="clickStep('step3')">
@@ -70,21 +72,31 @@ export default {
         }
     },
     methods: {
-        ...mapActions(["setChartTitle", "setSelectedChartType"]),
+        ...mapActions(["setChartTitle", "setSelectedChartType", "changeChartOptions", "changeChartData", "setIsLoading"]),
         clickStep: function(name) {
             console.log(name)
             this.showInput = name
-            if ( name === "step3") {
-
-            }
         },
         inputChange: function() {
             this.setChartTitle(this.chartTitle)
         },
         radioClicked: function (val) {
+            this.setIsLoading(true)
             this.setSelectedChartType(val)
-            console.log('this is ', val)
-            this.$forceUpdate()
+            let obj = {}
+            obj.chart = {}
+            obj.chart.type = val
+            if (val === 'stacked') {
+                obj.chart.type = 'column'
+                obj.plotOptions = {}
+                obj.plotOptions.column = {}
+                obj.plotOptions.column.stacking = 'normal'
+                obj.plotOptions.column.dataLabels = {}
+                obj.plotOptions.column.dataLabels.enabled = true
+                obj.legend = {}
+                obj.legend.enabled = true
+            } 
+            this.changeChartOptions(obj)
         },
     },
     computed: {
