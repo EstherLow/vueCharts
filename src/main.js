@@ -9,11 +9,11 @@ import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
-window.$ = $
+// window.$ = $
 
 library.add(faCircleNotch, faPlus)
 
-Vue.use(Highcharts)
+// Vue.use(Highcharts)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false;

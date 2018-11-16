@@ -83,20 +83,8 @@ export default {
         radioClicked: function (val) {
             this.setIsLoading(true)
             this.setSelectedChartType(val)
-            let obj = {}
-            obj.chart = {}
-            obj.chart.type = val
-            if (val === 'stacked') {
-                obj.chart.type = 'column'
-                obj.plotOptions = {}
-                obj.plotOptions.column = {}
-                obj.plotOptions.column.stacking = 'normal'
-                obj.plotOptions.column.dataLabels = {}
-                obj.plotOptions.column.dataLabels.enabled = true
-                obj.legend = {}
-                obj.legend.enabled = true
-            } 
-            this.changeChartOptions(obj)
+            
+            // this.changeChartOptions(obj)
         },
     },
     computed: {

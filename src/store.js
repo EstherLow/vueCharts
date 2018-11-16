@@ -14,56 +14,159 @@ export default new Vuex.Store({
     chartData: [],
     legacyChartOptions: {},
     chartOptions: {
-      chart:{
+      bar: {
+          chart:{
+            type: 'column',
+            height: 400
+        },
+        title: {
+            text: null
+        },
+        xAxis: {
+            categories: ['CatA', 'CatB', 'CatC', 'CatD'],
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: null
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        legend: {
+            enabled: false,
+            layout: 'vertical'
+        },
+        tooltip: {
+            formatter: function () {
+                return this.point.name + ': ' + this.point.y + '%'
+            }
+        },
+        series: []
+      },
+      stacked:{
+        chart:{
           type: 'column',
           height: 400
+        },
+        title: {
+            text: null
+        },
+        xAxis: {
+            categories: ['CatA', 'CatB', 'CatC', 'CatD'],
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: null
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        legend: {
+            enabled: false,
+            layout: 'vertical'
+        },
+        plotOptions: {
+          stacking: 'normal'
+        },
+        tooltip: {
+            formatter: function () {
+                return this.point.name + ': ' + this.point.y + '%'
+            }
+        },
+        series: []
       },
-      title: {
-          text: null
-      },
-      xAxis: {
-          categories: ['CatA', 'CatB', 'CatC', 'CatD'],
-      },
-      yAxis: {
-          min: 0,
-          title: {
-              text: null
+      pie:{
+          chart:{
+            type: 'pie',
+            height: 400
+        },
+        title: {
+            text: null
+        },
+        xAxis: {
+            categories: ['CatA', 'CatB', 'CatC', 'CatD'],
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: null
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        legend: {
+            enabled: false,
+            layout: 'vertical'
+        },
+        plotOptions: {
+          dataLabels: {
+            formatter: function () {
+              return '<div><span style="font-size: 18pt">' + this.y + '</span><br/><span>'+ this.key +'</span></div>'
+            }
           }
+        },
+        tooltip: {
+            formatter: function () {
+                return this.point.name + ': ' + this.point.y + '%'
+            }
+        },
+        series: []
       },
-      credits: {
-          enabled: false
-      },
-      legend: {
-          enabled: false,
-          layout: 'vertical'
-      },
-      tooltip: {
-          formatter: function () {
-              return this.point.name + ': ' + this.point.y + '%'
-          }
-      },
-      plotOptions: {
-        
-      },
-      series: [
-          {
-              name: 'Simple Bar',
-              colorByPoint: true,
-              data: [
-                  {name: 'CatA', y: 10, color: '#FC707A'},
-                  {name: 'CatB', y: 7, color: '#FFE571'},
-                  {name: 'CatC', y: 8, color: '#8770DD'},
-                  {name: 'CatD', y: 15, color: '#7AEC68'}
-              ],
-          }
-      ]
+      line:{
+        chart:{
+          type: 'line',
+          height: 400
+        },
+        title: {
+            text: null
+        },
+        xAxis: {
+            categories: ['CatA', 'CatB', 'CatC', 'CatD'],
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: null
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        legend: {
+            enabled: false,
+            layout: 'vertical'
+        },
+        plotOptions: {},
+        tooltip: {
+            formatter: function () {
+                return this.point.name + ': ' + this.point.y + '%'
+            }
+        },
+        series: []
+      }
     },
+    sampleSimpleData: {
+        name: 'Simple Bar',
+        colorByPoint: true,
+        data: [
+            {name: 'CatA', y: 10, color: '#FC707A'},
+            {name: 'CatB', y: 7, color: '#FFE571'},
+            {name: 'CatC', y: 8, color: '#8770DD'},
+            {name: 'CatD', y: 15, color: '#7AEC68'}
+        ],
+      },
     sampleChartData: [
       {name: 'PointA', data: [10,2,5,7], color: '#FC707A'},
       {name: 'PointB', data: [5,6,8,9], color: '#FFE571'},
       {name: 'PointC', data: [9,8,6,2], color: '#8770DD'},
       {name: 'PointD', data: [3,2,1,3], color: '#7AEC68'}
-    ]
+    ],
+    chartOptionsChanged: false
   },
   mutations: {
     setChartTitle (state, payload) {
@@ -71,25 +174,19 @@ export default new Vuex.Store({
     },
     setSelectedChartType (state, payload) {
       state.selectedChartType = payload
+      state.chartOptionsChanged = true
     },
     setIsLoading (state, bool) {
       state.setIsLoading = bool
     },
     changeChartOptions (state, obj, data) {
-      state.legacyChartOptions = state.chartOptions
+      state.legacyChartOptions = {...state.chartOptions}
       let keys = Object.keys(obj)
       keys.forEach(function (k) {
-        state.chartOptions[k] = obj[k]
+        Vue.set(state.chartOptions, k, obj[k])        
       })
-      if (state.selectedChartType !== 'bar' && state.selectedChartType !== 'pie') {
-        state.chartOptions.series = []
-        if (!data) {
-          state.chartOptions.series = state.sampleChartData
-        } else {
-          state.chartOptions.series = data
-        }
-      }
       state.isLoading = false
+      state.chartOptionsChanged = true
     },
     changeChartData (state, payload) {
       state.chartOptions.series = []
@@ -102,6 +199,9 @@ export default new Vuex.Store({
     },
     setChartData (state, obj) {    
       state.chartData.push(obj)
+    },
+    resetChartOptionsChanged (state, bool) {
+      state.chartOptionsChanged = bool
     }
   },
   actions: {
@@ -123,5 +223,8 @@ export default new Vuex.Store({
     changeChartData({commit}, arr) {
       commit('changeChartData', arr)
     },
+    resetChartOptionsChanged({commit}, bool) {
+      commit('resetChartOptionsChanged', bool)
+    }
   }
 });
