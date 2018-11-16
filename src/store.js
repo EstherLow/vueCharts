@@ -53,9 +53,7 @@ export default new Vuex.Store({
         title: {
             text: null
         },
-        xAxis: {
-            categories: ['CatA', 'CatB', 'CatC', 'CatD'],
-        },
+        xAxis: { categories: ['CatA', 'CatB', 'CatC', 'CatD'] },
         yAxis: {
             min: 0,
             title: {
