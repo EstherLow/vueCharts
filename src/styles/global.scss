@@ -1,4 +1,9 @@
 @import "./variables";
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+#app {
+    font-family: 'Ubuntu', sans-serif;
+}
 
 .main-body {
     width: 70%;

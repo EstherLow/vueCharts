@@ -38,9 +38,22 @@ export default new Vuex.Store({
             enabled: false,
             layout: 'vertical'
         },
+        plotOptions: {
+            series: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: true,
+                    inside: false,
+                    style: {
+                        textOutline: 'none', fontSize: '12pt', color: '#000'
+                    }
+
+                }
+            }
+        },
         tooltip: {
             formatter: function () {
-                return this.point.name + ': ' + this.point.y + '%'
+                return this.point.name + ': ' + this.point.y
             }
         },
         series: []
@@ -64,15 +77,25 @@ export default new Vuex.Store({
             enabled: false
         },
         legend: {
-            enabled: false,
-            layout: 'vertical'
+            enabled: true,
+            layout: 'horizontal'
         },
         plotOptions: {
-          stacking: 'normal'
+            series: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: true,
+                    inside: true,
+                    style: {
+                        textOutline: 'none', fontSize: '12pt'
+                    }
+
+                }
+            }
         },
         tooltip: {
             formatter: function () {
-                return this.point.name + ': ' + this.point.y + '%'
+                return this.point.series.name + ': ' + this.point.y
             }
         },
         series: []
@@ -98,19 +121,28 @@ export default new Vuex.Store({
             enabled: false
         },
         legend: {
-            enabled: false,
-            layout: 'vertical'
+            enabled: true,
+            layout: 'horizontal'
         },
         plotOptions: {
-          dataLabels: {
-            formatter: function () {
-              return '<div><span style="font-size: 18pt">' + this.y + '</span><br/><span>'+ this.key +'</span></div>'
-            }
-          }
+          pie: {
+              showInLegend: true,
+              dataLabels: {
+                distance: -30,
+                y: -20,
+                useHTML: true,
+                formatter: function () {
+                  return '<div><span style="font-size: 16pt; margin-bottom: 3pt;">' + this.y + '</span><br/><span style="font-size: 12pt">'+ this.key +'</span></div>'
+                },
+                style: {
+                    textOutline: 'none'
+                }
+              }
+          }  
         },
         tooltip: {
             formatter: function () {
-                return this.point.name + ': ' + this.point.y + '%'
+                return this.point.name + ': ' + this.point.y
             }
         },
         series: []
@@ -136,13 +168,13 @@ export default new Vuex.Store({
             enabled: false
         },
         legend: {
-            enabled: false,
-            layout: 'vertical'
+            enabled: true,
+            layout: 'horizontal'
         },
         plotOptions: {},
         tooltip: {
             formatter: function () {
-                return this.point.name + ': ' + this.point.y + '%'
+                return this.point.series.name + ': ' + this.point.y
             }
         },
         series: []

@@ -25,12 +25,18 @@
             <div class="row mt-1">
                 <InputData></InputData>
             </div>
+            <div class="row mt-2">
+                <div class="col-sm-4">
+                    <button class="btn btn-sm btn-warning">Add Series</button>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-sm btn-danger">Clear All</button>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-sm btn-success">Edit Data</button>
+                </div>
+            </div>
             <h4 class="mt-5">Customise Chart</h4>
-            <!-- <div class="row mt-1">
-                <Button class="button-orange" :onClick="addRow">
-                    <template slot="button-text" class="button-text">Add Data</template>
-                </Button>
-            </div> -->
             <div class="row mt-1">
                 <div class="form-check form-check-inline">
                     <input type="checkbox" class="form-check-input" v-model="showLegend">
