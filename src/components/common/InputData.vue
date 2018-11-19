@@ -2,7 +2,7 @@
     <div id="input-data">
         <div class="row mt-2">
             <div class="col-sm-4">
-                <label>Name(x-axis)</label>
+                <label class="">Name(x-axis)</label>
                 <input type="text" v-model="point.name" placeholder='CatA'/>
             </div>
             <div class="col-sm-4">
